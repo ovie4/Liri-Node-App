@@ -1,0 +1,25 @@
+{
+  "name": "liri-node-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ovie4/Liri-Node-App.git"
+  },
+  "author": "Ovie Omene",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ovie4/Liri-Node-App/issues"
+  },
+  "homepage": "https://github.com/ovie4/Liri-Node-App#readme",
+  "dependencies": {
+    "node-spotify-api": "^1.0.7",
+    "node-twitter-api": "^1.8.0",
+    "request": "^2.83.0",
+    "twitter": "^1.7.1"
+  }
+}
