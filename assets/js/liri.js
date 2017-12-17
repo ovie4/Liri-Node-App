@@ -1,55 +1,94 @@
 var keys = require("./keys.js");
-console.log(keys);
+
 var twitterConsumerKey = keys.twitter.consumer_key;
 var twitterConsumerSecret = keys.twitter.consumer_secret;
+var twitterAccessTokenKey = keys.twitter.access_token_key;
+var twitterAccessTokenSecret = keys.twitter.access_token_secret;
+var twitterBearerToken = keys.twitter.bearer_token;
+var spotifyClientId = keys.spotify.clientId;
+var spotifyClientSecret = keys.spotify.clientSecret;
+//arguments
 var operand = process.argv[2];
 var param1 = process.argv[3];
 var param2 = process.argv[4];
 
-var request=require("request");
+function liri(){
+
+//twitter
+if (operand === 'my-tweets') {
+    //request info from twitter
+    var Twitter = require('twitter');
+
+    var client = new Twitter({
+        consumer_key: twitterConsumerKey,
+        consumer_secret: twitterConsumerSecret,
+        bearer_token: twitterBearerToken,
+    });
+
+    client.get('statuses/user_timeline', function(error, tweets, response) {
+        if (error) {
+            //	console.log(error);
+        }
+        console.log(tweets); // The favorites. 
+        // console.log(response);  // Raw response object. 
+    });
 
 
-if(operand==='my-tweets'){
-	//request info from twitter
-	var twitterAPI = require('node-twitter-api');
-	var twitter = new twitterAPI({
-    consumerKey: twitterConsumerKey,
-    consumerSecret: twitterConsumerSecret,
-    callback: 'http://yoururl.tld/something'
+
+
+} else if (operand === 'spotify-this-song') {
+    //request info from spotify
+    var Spotify = require('node-spotify-api');
+
+    var spotify = new Spotify({
+        id: spotifyClientId ,
+        secret: spotifyClientSecret
+    });
+
+    spotify.search({ type: 'track', query: param1 }, function(err, data) {
+  if (err) {
+    return console.log('Error occurred: ' + err);
+  }
+ else{
+//console.log(data.tracks.items[0]); 
+//artist
+console.log("Artist: "+data.tracks.items[0].artists[0].name); 
+//song name
+console.log("Song name: "+data.tracks.items[0].name); 
+//preview link
+console.log("Preview this song: "+data.tracks.items[0].external_urls.spotify); 
+//album name
+console.log("Album: "+data.tracks.items[0].album.name);
+
+}
 });
 
-	twitter.getRequestToken(function(error, requestToken, requestTokenSecret, results){
-    console.log(results);
-    if (error) {
-        console.log("Error getting OAuth request token : " + error);
-    } 
-    else {
-        console.log(requestToken);
-        console.log(requestTokenSecret);
-    }
-});
+} else if (operand === 'movie-this') {
+    //request info from omdb
 
-
-
-
-}
-else if(operand==='spotify-this-song'){
-	//request info from spotify
+    var request = require("request");
+    request("http://www.omdbapi.com/?t=" + param1 + "&y=&plot=short&apikey=trilogy", function(error, response, body) {
+        console.log(body);
+    })
 
 }
 
-else if(operand==='movie-this'){
-	//request info from omdb
-	
-	
-	request("http://www.omdbapi.com/?t="+param1+"&y=&plot=short&apikey=trilogy", function(error, response, body) {
-		console.log(body);
-	})
+} //ends function
+ else if (operand === 'do-what-it-says') {
+    //read random.txt
+    var fs = require("fs");
+    fs.readFile("../random.txt", "utf8", function(error, data){
+    	if(error){
+    		console.log(error)
+    	}
+    	else{
+    		var splitData = data.split(",");
+    		console.log(splitData);
+    		param1=splitData[0];
+    		param2=splitData[1];
+    		
+    	}
+    })
+    //put 
+} 
 
-}
-
-else if(operand==='do-what-it-says'){
-
-	//read random.txt
-	//put 
-}

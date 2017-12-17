@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/ovie4/Liri-Node-App#readme",
   "dependencies": {
+    "fs": "0.0.1-security",
     "node-spotify-api": "^1.0.7",
     "node-twitter-api": "^1.8.0",
     "request": "^2.83.0",
