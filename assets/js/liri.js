@@ -126,7 +126,7 @@ function liri() {
 
     } else if (operand === 'spotify-this-song') {
         if (!param1) {
-            param1 = "The Sign";
+            param1 = "The Sign Ace of Bass";
             console.log(param1);
             getSpotify();
         } else {
