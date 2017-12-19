@@ -12,6 +12,7 @@ var operand = process.argv[2];
 var param1 = process.argv[3];
 var param2 = process.argv[4];
 var movieName = "";
+var songName = "";
 
 function writeLog(output) {
     var fs = require("fs");
@@ -53,8 +54,17 @@ function getSpotify() {
         id: spotifyClientId,
         secret: spotifyClientSecret
     });
+    var nodeArgs = process.argv;
+
+    for (var i = 3; i < nodeArgs.length; i++) {
+        if (i > 3 && i < nodeArgs.length) {
+            songName = songName + "+" + nodeArgs[i];
+        } else {
+            songName += nodeArgs[i];
+        }
+    }
     writeLog("Spotify Search:");
-    spotify.search({ type: 'track', query: param1 }, function(err, data) {
+    spotify.search({ type: 'track', query: songName }, function(err, data) {
         if (err) {
             return console.log('Error occurred: ' + err);
         } else {
