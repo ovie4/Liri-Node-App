@@ -10,7 +10,6 @@ var spotifyClientSecret = keys.spotify.clientSecret;
 //arguments
 var operand = process.argv[2];
 var param1 = process.argv[3];
-var param2 = process.argv[4];
 var movieName = "";
 var songName = "";
 
@@ -113,7 +112,7 @@ function getOmdb() {
                     writeLog(bodyObj.Ratings[i].Source + " Rating: " + bodyObj.Ratings[i].Value);
                 } else {
                     console.log("No Ratings Available");
-                    writelog("No Ratings Available");
+                    writeLog("No Ratings Available");
                 }
             }
             console.log("Produced in: " + bodyObj.Country);
@@ -137,7 +136,6 @@ function liri() {
     } else if (operand === 'spotify-this-song') {
         if (!param1) {
             param1 = "The Sign Ace of Bass";
-            console.log(param1);
             getSpotify();
         } else {
             getSpotify();
